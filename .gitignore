@@ -15,3 +15,6 @@ leetcode/.idea/misc.xml
 leetcode/.idea/dictionaries/liuhao.xml
 leetcode/.idea/compiler.xml
 .idea
+*.iml
+/leetcode/target
+/leetcode/*.iml
