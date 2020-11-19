@@ -53,10 +53,6 @@ package leetcode.editor.cn;
 // Related Topics 数组 二分查找 分治算法 
 // 👍 3396 👎 0
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * 寻找两个正序数组的中位数
  *
@@ -66,29 +62,86 @@ public class MedianOfTwoSortedArrays {
 
     public static void main(String[] args) {
         Solution solution = new MedianOfTwoSortedArrays().new Solution();
-        int[] nums1 = new int[]{1,3};
+        int[] nums1 = new int[]{1, 3};
         int[] nums2 = new int[]{2};
-        solution.findMedianSortedArrays(nums1,nums2);
+        solution.findMedianSortedArrays(nums1, nums2);
     }
 
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-            List<Integer> list1 = Arrays.stream(nums1).boxed().collect(Collectors.toList());
-            List<Integer> list2 = Arrays.stream(nums2).boxed().collect(Collectors.toList());
-            list1.addAll(list2);
-            list1.sort((o1,o2) -> o1-o2);
+            int m = nums1.length;
+            int n = nums2.length;
 
-            int size = list1.size();
-            if (size % 2 != 0) {
-                return list1.get(size / 2);
+            // 如果m+n为奇数，则中位数存在一个 left==right，如果m+n为偶数，left != right; 所以不管奇偶，中位数为2个之和的一半
+            int left = (m + n + 1) / 2;
+            int right = (m + n + 2) / 2;
+            if (left == right) {
+                return getNum(nums1, 0, m - 1, nums2, 0, n - 1, left);
             } else {
-                return (list1.get(size / 2) + list1.get(size / 2 - 1)) / (double)2;
+                return (getNum(nums1, 0, m - 1, nums2, 0, n - 1, left)
+                        + getNum(nums1, 0, m - 1, nums2, 0, n - 1, right)) / 2.0;
             }
+        }
+
+        private int getNum(int[] nums1, int start1, int end1, int[] nums2, int start2, int end2, int k) {
+
+            return 0;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
+
+
+   /* 数组归并合并查找，遍历m+n次
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int m = nums1.length;
+        int n = nums2.length;
+        int[] sum = new int[m + n];
+
+        int i = 0, j = 0, count = 0;
+        while (count != (m + n)) {
+            if (j == n) {
+                while (i < m) {
+                    sum[count++] = nums1[i++];
+                }
+                break;
+            }
+
+            if (i == m) {
+                while (j < n) {
+                    sum[count++] = nums2[j++];
+                }
+                break;
+            }
+
+            if (nums1[i] < nums2[j]) {
+                sum[count++] = nums1[i++];
+            } else {
+                sum[count++] = nums2[j++];
+            }
+        }
+        if (count % 2 == 0) {
+            return (sum[count / 2 - 1] + sum[count / 2]) / 2.0;
+        } else {
+            return sum[count / 2];
+        }
+    }*/
+
+/*  stream流转list合并排序，遍历2* m+n 次
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        List<Integer> list1 = Arrays.stream(nums1).boxed().collect(Collectors.toList());
+        List<Integer> list2 = Arrays.stream(nums2).boxed().collect(Collectors.toList());
+        list1.addAll(list2);
+        list1.sort((o1, o2) -> o1 - o2);
+
+        int size = list1.size();
+        if (size % 2 != 0) {
+            return list1.get(size / 2);
+        } else {
+            return (list1.get(size / 2) + list1.get(size / 2 - 1)) / (double) 2;
+        }
+    }*/
 
 
 }
