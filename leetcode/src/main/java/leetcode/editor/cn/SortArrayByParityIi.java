@@ -31,35 +31,35 @@ package leetcode.editor.cn;
 
 /**
  * 按奇偶排序数组 II
+ *
  * @since :2020-11-13 13:15:24
  */
-public class SortArrayByParityIi{
-    
+public class SortArrayByParityIi {
+
     public static void main(String[] args) {
-         Solution solution = new SortArrayByParityIi().new Solution();
+        Solution solution = new SortArrayByParityIi().new Solution();
     }
-    
-    
-      //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int[] sortArrayByParityII(int[] A) {
-        int[] B = new int[A.length];
-        int j = 0;
-        int z = 1;
-        for (int i = 0; i < A.length; i++) {
-            if (A[i] % 2 == 0) {
-                B[j] = A[i];
-                j += 2;
-            } else {
-                B[z] = A[i];
-                z += 2;
+
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public int[] sortArrayByParityII(int[] A) {
+            int[] B = new int[A.length];
+            int j = 0;
+            int z = 1;
+            for (int i = 0; i < A.length; i++) {
+                if (A[i] % 2 == 0) {
+                    B[j] = A[i];
+                    j += 2;
+                } else {
+                    B[z] = A[i];
+                    z += 2;
+                }
             }
+            return B;
         }
-        return B;
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
-      
-      
+
 }

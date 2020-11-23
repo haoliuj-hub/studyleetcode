@@ -21,34 +21,34 @@ import java.util.Map;
 
 /**
  * 两数之和
+ *
  * @since :2020-11-13 13:08:01
  */
-public class TwoSum{
-    
+public class TwoSum {
+
     public static void main(String[] args) {
-         Solution solution = new TwoSum().new Solution();
+        Solution solution = new TwoSum().new Solution();
     }
-    
-    
-      //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> T = new HashMap();
-        int[] B = new int[2];
-        for (int i = 0; i < nums.length; i++) {
-            int z = target - nums[i];
-            if (T.containsKey(z)) {
-                B[0] = T.get(z);
-                B[1] = i;
-                return B;
+
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public int[] twoSum(int[] nums, int target) {
+            Map<Integer, Integer> T = new HashMap();
+            int[] B = new int[2];
+            for (int i = 0; i < nums.length; i++) {
+                int z = target - nums[i];
+                if (T.containsKey(z)) {
+                    B[0] = T.get(z);
+                    B[1] = i;
+                    return B;
+                }
+                T.put(nums[i], i);
             }
-            T.put(nums[i], i);
+            return B;
         }
-        return B;
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
-      
-      
+
 }
