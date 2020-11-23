@@ -35,14 +35,28 @@ public class ReverseInteger {
 
     public static void main(String[] args) {
         Solution solution = new ReverseInteger().new Solution();
+        int z = 1234;
+        System.out.println(solution.reverse(z));
     }
 
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int reverse(int x) {
-
-            return 0;
+            int result = 0;
+            while (x != 0) {
+                int j = x % 10;
+                x = x / 10;
+                if (result > Integer.MAX_VALUE / 10 || (result == Integer.MAX_VALUE / 10 && j > Integer.MAX_VALUE % 10)) {
+                    result = 0;
+                    break;
+                } else if (result < Integer.MIN_VALUE / 10 || (result == Integer.MIN_VALUE / 10 && j < Integer.MIN_VALUE % 10)) {
+                    result = 0;
+                    break;
+                }
+                result = result * 10 + j;
+            }
+            return result;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
