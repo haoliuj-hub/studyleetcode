@@ -37,13 +37,81 @@ public class PalindromeNumber {
 
     public static void main(String[] args) {
         Solution solution = new PalindromeNumber().new Solution();
-        solution.isPalindrome(121);
+        solution.isPalindrome(123456);
     }
 
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        // 官方思路调试
         public boolean isPalindrome(int x) {
+            if (x < 0 || (x % 10 == 0 && x != 0)) return false;
+            int revertedNumber = 0;
+            while (x > revertedNumber) {
+                revertedNumber = revertedNumber * 10 + x % 10;
+                x /= 10;
+            }
+            return x == revertedNumber || x == revertedNumber / 10;
+        }
+    }
+//leetcode submit region end(Prohibit modification and deletion)
+
+    /* 下面数学解题优化，不需要幂次方
+         public boolean isPalindrome(int x) {
+            if (x < 0) {
+                return false;
+            }
+            int z = 1;
+            while (x / z >= 10) {
+                z *= 10;
+            }
+
+            while(x > 0){
+                int left = x / z;
+                int right = x % 10;
+                if (left != right) return false;
+                x = (x % z) / 10;
+                z /= 100;
+            }
+
+            return true;
+        }
+     */
+
+
+    /* 数学解题
+    public boolean isPalindrome(int x) {
+            if (x < 0) {
+                return false;
+            }
+
+            int temp = x;
+            int z = 0;
+            while (temp != 0) {
+                temp = temp / 10;
+                z++;
+            }
+
+            if (z < 2) {
+                return true;
+            }
+
+            for (int y = 1; y <= z / 2; y++) {
+                double powLeft = Math.pow(10, z - y);
+                double powRight = Math.pow(10, y);
+                int right = (int) ((x % powRight) / (Math.pow(10, y-1)));
+                int left = (int) (x / powLeft);
+                if (left != right) {
+                    return false;
+                }
+                x = (int) ((x - left * powLeft));
+            }
+            return true;
+        }
+     */
+
+    /* 采用反转后判断相等
+            public boolean isPalindrome(int x) {
             if (x < 0) {
                 return false;
             }
@@ -63,8 +131,8 @@ public class PalindromeNumber {
             }
             return false;
         }
-    }
-//leetcode submit region end(Prohibit modification and deletion)
+     */
+
 
     /*
         // 字符串解法
