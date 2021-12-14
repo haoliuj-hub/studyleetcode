@@ -24,6 +24,8 @@ package leetcode.editor.cn;
 public class MoveZeroes {
 
     public static void main(String[] args) {
+        char a = '刘';
+        System.out.println(a);
         Solution solution = new MoveZeroes().new Solution();
         int[] z = new int[]{1};
         solution.moveZeroes(z);

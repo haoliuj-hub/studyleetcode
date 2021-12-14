@@ -50,7 +50,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
             if (s.length() == 0) {
                 return 0;
             }
-            HashMap<Character, Integer> map = new HashMap<>();
+            HashMap<Character, Integer> map = new HashMap<Character, Integer>();
             int max = 0;
             int left = 0;
             for (int i = 0; i < s.length(); i++) {

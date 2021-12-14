@@ -1,0 +1,41 @@
+class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if(l1 == null){
+            return  l2;
+        }
+        if(l2 == null){
+            return l1;
+        }
+
+        ListNode newNode;
+        ListNode temp;
+        if(l1.val <= l2.val){
+            newNode = l1;
+            temp = l2;
+        }else{
+            newNode = l2;
+            temp = l1;
+        }
+        get(newNode,temp);
+        return newNode;
+    }
+
+    private void get(ListNode newNode,ListNode temp){
+        if(newNode.next == null){
+            newNode.next = temp;
+            return;
+        }
+        if(temp == null){
+            return;
+        }
+
+        if (newNode.next.val > temp.val) {
+            ListNode aNode = temp;
+            temp = newNode.next;
+            newNode.next = aNode;
+        }
+        get(newNode.next,temp);
+    }
+}
+//runtime:0 ms
+//memory:37.9 MB

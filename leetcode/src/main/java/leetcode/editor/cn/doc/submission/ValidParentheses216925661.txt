@@ -1,0 +1,42 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public boolean isValid(String s) {
+        if(s == null){
+            return false;
+        }
+
+        if(s.length()%2 != 0){
+            return false;
+        }
+
+        Map<Character,Character> let = new HashMap<>();
+        let.put(')','(');
+        let.put(']','[');
+        let.put('}','{');
+
+        Deque aa = new ArrayDeque();
+
+        for(int i = 0; i<s.length() ; i++ ){
+            char aChar = s.charAt(i);
+            if(let.containsKey(aChar)){
+                if(aa.isEmpty() || let.get(aChar) != aa.peek()){
+                    return false;
+                }else{
+                    aa.pop();
+                }
+            }else{
+                aa.push(aChar);
+            }
+        }
+        if(aa.isEmpty()){
+            return true;
+        }
+        return false;
+    }
+}
+//runtime:2 ms
+//memory:36.4 MB

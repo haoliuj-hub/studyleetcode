@@ -1,0 +1,29 @@
+class Solution {
+    public int removeElement(int[] nums, int val) {
+//        int length = nums.length;
+//        int write = 0;
+//        for(int i = 0; i < length; i ++){
+//            if(nums[i] != val){
+//                nums[write++] = nums[i];
+//            }
+//        }
+//        return write;
+
+        // 官方左右指针同时进行
+        int left = 0;
+        int right = nums.length;
+
+        while (left < right){
+            if (nums[left] == val) {
+                nums[left] = nums[right-1];
+                right--;
+            } else {
+                left++;
+            }
+        }
+        return left;
+    }
+    
+}
+//runtime:0 ms
+//memory:37 MB
