@@ -1,0 +1,19 @@
+### 解题思路
+
+此处撰写解题思路
+
+### 代码
+
+* typescript
+
+```typescript
+function replaceSpaces(S: string, length: number): string {
+    let arr:string[] = new Array(length)
+    for(let i = 0;i<length;i++) {
+        if(S[i]==" ")arr[i]="%20"
+        else arr[i]=S[i]
+    }
+    return arr.join("")
+};
+```
+

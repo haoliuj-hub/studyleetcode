@@ -1,0 +1,96 @@
+回文字符串有两种，一种是**奇数**的，类似于```"abbba"```，一种是**偶数**的，类似于```"abba"```或者```"aabbaa"```。
+
+偶数的我们好判断，只需要找出每个字符都是偶数就行了。但奇数的就不能使用这种方式了，其实仔细观察我们就能发现，如果是奇数的，那么字符串的所有字符中只有一个字符的个数是奇数，其他的都是偶数。
+
+搞懂了上面的分析过程，代码就容易多了，实现方式也比较多，我们来看几个。
+
+### 1，使用集合Set解决
+
+使用set集合去重
+
+* java
+
+```java
+public boolean canPermutePalindrome(String s) {
+    Set<Character> set = new HashSet<>();
+    for (char ch : s.toCharArray()) {
+        //set的add方法如果返回false，表示已经有了，
+        //我们就把他删除
+        if (!set.add(ch)) {
+            set.remove(ch);
+        }
+    }
+    //最后判断set的长度是否小于等于1，如果等于1说明
+    //只有一个字符的个数是奇数，其他的都是偶数。如果
+    //等于0说明每个字符都是偶数，否则不可能构成回文字符串
+    return set.size() <= 1;
+}
+```
+
+<br> </br>
+
+### 2，位运算解决
+
+在```128```位的字符中，如果是用```int```类型，需要4位，但如果使用```long```类型，只需要两位就行了。一个记录```0-63```，一个记录```64-127```。每一位对应一个字符，如果当前位置是1，表示有字符了，那么加上当前字符就是2个，我们把它变为0,。如果当前位置没有字符，我们就把当前位置变为1，表示有一个字符。
+
+最后在判断这两个long类型中1的个数，如果大于1个就不能构成回文排列。
+
+* java
+
+```java
+public boolean canPermutePalindrome(String s) {
+    long highBitmap = 0;
+    long lowBitmap = 0;
+    for (char ch : s.toCharArray()) {
+        if (ch >= 64) {
+            highBitmap ^= 1L << ch - 64;
+        } else {
+            lowBitmap ^= 1L << ch;
+        }
+    }
+    return Long.bitCount(highBitmap) + Long.bitCount(lowBitmap) <= 1;
+}
+```
+
+看一下运行结果
+
+![image.png](https://pic.leetcode-cn.com/1617331111-bRLnft-image.png)
+
+<br> </br>
+
+### 3，解法三
+
+使用一个全局变量```count```，然后遍历字符串中的所有字符，**如果遇到偶数个，表示消掉了**，就把count减一。如果遇到奇数个，表示多了一个新的，```count```就加一，
+
+* java
+
+```java
+public boolean canPermutePalindrome(String s) {
+    int[] map = new int[128];
+    int count = 0;
+    for (char ch : s.toCharArray()) {
+        //如果当前位置的字符数量是奇数，再加上当前字符
+        //正好是偶数，表示消掉一个，我们就把count减一，
+        //否则count就加一
+        if ((map[ch]++ & 1) == 1) {
+            count--;
+        } else {
+            count++;
+        }
+    }
+    return count <= 1;
+}
+```
+
+看一下运行结果
+
+![image.png](https://pic.leetcode-cn.com/1617331520-NokdHh-image.png)
+
+<br> </br>
+
+我把部分算法题整理成了PDF文档，截止目前总共有**900多页**，大家可以下载阅读
+**链接**：https://pan.baidu.com/s/1hjwK0ZeRxYGB8lIkbKuQgQ
+**提取码**：6666
+
+#### 如果觉得有用就给个赞吧，还可以关注我的[LeetCode主页](https://leetcode-cn.com/u/sdwwld/)查看更多的详细题解
+

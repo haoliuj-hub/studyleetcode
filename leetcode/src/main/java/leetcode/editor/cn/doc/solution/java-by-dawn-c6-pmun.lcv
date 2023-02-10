@@ -1,0 +1,24 @@
+**解题思路**：
+先把字符串转换成字符数组，然后进行*sort()*排序，排序后每一位元素只可能和它前一位或后一位相同，然后循环遍历一次ok了，*char[i]*和*char[i+1]*判断是否相等，相等直接返回*false*,不相等*i++*,如果遍历结束没有相同，返回*true*。
+
+* 
+
+```
+class Solution {
+    public boolean isUnique(String astr) {
+        char[] chars = astr.toCharArray();
+	    Arrays.sort(chars);
+	    int i = 0;
+        while (i<chars.length-1){
+        	if (chars[i] == chars[i+1]){
+        		return false;
+	        }else {
+        		i++;
+	        }
+        }
+	    return true;
+    }
+}
+```
+
+**用时：0 ms**

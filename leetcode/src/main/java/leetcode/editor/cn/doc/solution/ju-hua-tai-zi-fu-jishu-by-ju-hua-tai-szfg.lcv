@@ -1,0 +1,40 @@
+### 解题思路
+
+本题无论是数据量还是字符数量都非常少，在固定的情况下我不是很想用HashMap，基本数据类型应该会快一些。
+所以看了一下ASCII码只有128个，应该囊括了所有的字符，直接上128即可。
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public boolean CheckPermutation(String s1, String s2) {
+        int[] map = new int[128];
+        for(int i = 0; i < s1.length(); i++)
+            map[s1.charAt(i)]++;
+        for(int j = 0; j < s2.length(); j++)
+            map[s2.charAt(j)]--;
+        for(int t: map)
+            if(t != 0) return false;
+        return true;
+    }
+}
+```
+
+* java
+
+```java
+class Solution {
+    public boolean CheckPermutation(String s1, String s2) {
+        int[] map = new int[128];
+        if(s1.length() != s2.length()) return false;
+        for(int i = 0; i < s1.length(); i++)
+            map[s1.charAt(i)]++;
+        for(int j = 0; j < s2.length(); j++)
+            if(--map[s2.charAt(j)] < 0) return false;
+        return true;
+    }
+}
+```
+

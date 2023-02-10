@@ -1,0 +1,33 @@
+这题的本质很简单就是把空格替换为"%20"，那么用StringBuilder（限Java）容易实现，或者先统计空格数量然后计算结果的长度，然后再遍历一次执行替换即可。
+
+但，这题的输入和要求略变态一些，非常容易ＷＡ。关键信息：
+
+1. 输入字符串（或者字符数组）空间足够大，存下替换完的结果没有问题，但不一定刚好是替换结果的长度，这里也是有坑的
+2. 需要替换的串的长度是$length$，也就是说$[0,length-1]$之间的字符需要执行替换
+3. 替换结果字符串的长度是小于等于输入字符串的，见第１条说明。所以，需要知道替换后字符的真实长度。
+
+* java
+
+```java
+class Solution {
+    public String replaceSpaces(String S, int length) {
+        char[] ca = S.toCharArray();
+        final int n = ca.length;
+        char[] result = new char[n];
+        int k = 0;
+        for (int j = 0; j < length; j++) {
+            if (ca[j] == ' ') {
+                result[k++] = '%';
+                result[k++] = '2';
+                result[k++] = '0';
+            } else {
+                result[k++] = ca[j];
+            }
+        }
+
+        return new String(result, 0, k);
+    }
+}
+```
+
+时间复杂度$O(n)$，空间复杂度$O(n)$。
