@@ -1,0 +1,32 @@
+* []
+
+```java
+class Solution {
+    public int singleNumber(int[] nums) {
+        //如果数组长度为1 直接返回nums[0]
+        if(nums.length == 1){
+            return nums[0];
+        }
+        //对数组进行升序排序
+        Arrays.sort(nums);
+        int result = 0;
+        for(int i = 0; i < nums.length - 1; ){
+            //如果相邻的两个数不一样 result等于当前下标的值
+            if(nums[i]!=nums[i+1]){
+                result = nums[i];
+                break;
+            }else{
+                //如果一样 下标后移两个
+                i = i + 2;
+            }
+            //当下标为数组最后一个下标 result等于当前下标的值
+            if(i == nums.length - 1){
+                result = nums[i];
+            }
+        }
+        return result;
+
+    }
+}
+```
+
